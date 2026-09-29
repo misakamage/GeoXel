@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "geoxel"
+version = "0.1.0"
+description = "Geo-referenced long-duration aerial reconstruction with StreamVGGT"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "torch>=2.3",
+  "torchvision>=0.18",
+  "numpy>=1.26",
+  "Pillow>=10",
+  "scipy>=1.10",
+  "einops>=0.7",
+  "transformers>=4.40",
+  "huggingface_hub>=0.23",
+  "opencv-python>=4.8",
+  "tqdm>=4.65",
+]
+
+[project.optional-dependencies]
+maps = ["rasterio>=1.3", "pyproj>=3.6", "affine>=2.4", "romatch"]
+full = ["rasterio>=1.3", "pyproj>=3.6", "affine>=2.4", "romatch", "hydra-core", "accelerate", "tensorboard", "open3d", "viser", "gradio"]
+
+[project.scripts]
+geoxel = "geoxel.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["geoxel*", "streamvggt*"]

@@ -1,0 +1,5 @@
+cff-version: 1.2.0
+title: "GeoXel: Geo-referenced 3D Reconstruction from Long-duration Aerial Video"
+type: software
+version: 0.1.0
+license: "CC-BY-NC-SA-4.0"
