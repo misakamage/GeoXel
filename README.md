@@ -2,6 +2,8 @@
 
 **Geographic Per-pixel 3D Mapping from Aerial Video in the Wild**
 
+[Project Page](https://nudt-sawlab.github.io/geoxel/) · [Code](https://github.com/nudt-sawlab/geoxel)
+
 ![GeoXel overview and AMtown trajectory comparison](assets/teaser.png)
 
 GeoXel reconstructs geographically aligned camera trajectories and 3D geometry
@@ -25,6 +27,7 @@ The Python entry point accepts additional configuration options.
 
 ```text
 assets/                         Teaser and pipeline figures
+docs/                           GitHub Pages project website
 src/streamvggt/                StreamVGGT backbone and GeoXel pipeline
 src/geoxel/                    Map I/O and public Python helpers
 scripts/run_uavscenes_amtown.sh  UAVScenes AMtown entry point
