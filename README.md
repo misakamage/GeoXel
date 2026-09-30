@@ -13,7 +13,7 @@ paper, *GeoXel: Geographic Per-pixel 3D Mapping from Aerial Video in the Wild*.
 
 ## Overview
 
-![GeoXel pipeline](assets/pipeline.png)
+
 
 The public UAVScenes entry point is
 [`scripts/run_uavscenes_amtown.sh`](scripts/run_uavscenes_amtown.sh). It runs
