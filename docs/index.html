@@ -1,79 +1,68 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="GeoXel: geographic per-pixel 3D mapping from aerial video in the wild.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GeoXel | Geographic 3D Mapping from Aerial Video</title>
-  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&display=swap');
+    body { font-family: 'Noto Sans', sans-serif; }
+    .gradient-text { background: linear-gradient(to right, #0f766e, #2563eb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .muted-button { background: #e5e7eb; color: #9ca3af; cursor: not-allowed; }
+  </style>
 </head>
-<body>
-  <header class="site-header">
-    <div class="nav-wrap">
-      <a class="brand" href="#top">GeoXel</a>
-      <nav aria-label="Primary navigation">
-        <a href="#method">Method</a>
-        <a href="#code">Code</a>
-        <a href="#citation">Citation</a>
-      </nav>
+<body class="bg-gray-50 text-gray-800">
+  <header class="py-12 bg-white shadow-sm">
+    <div class="max-w-5xl mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight"><span class="gradient-text">GeoXel: Geographic Per-pixel 3D Mapping<br>from Aerial Video in the Wild</span></h1>
+      <p class="text-2xl text-gray-600 font-bold mb-6">Geo-referenced long-duration aerial reconstruction</p>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-8">A StreamVGGT-based framework that combines DOM, DEM, geographic test-time adaptation, and pose-graph optimization for globally aligned camera trajectories and dense 3D maps.</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="#" aria-disabled="true" title="Paper link will be added when publicly available" class="muted-button flex items-center px-5 py-2 rounded-full"><i class="fas fa-file-pdf mr-2"></i> Paper</a>
+        <a href="#" aria-disabled="true" title="Demo link is not available yet" class="muted-button flex items-center px-5 py-2 rounded-full"><i class="fas fa-play mr-2"></i> Demo</a>
+        <a href="https://github.com/nudt-sawlab/geoxel" target="_blank" rel="noreferrer" class="flex items-center bg-gray-800 text-white px-5 py-2 rounded-full hover:bg-gray-700 transition"><i class="fab fa-github mr-2"></i> Code</a>
+      </div>
     </div>
   </header>
-  <main id="top">
-    <section class="hero section-shell">
-      <p class="eyebrow">Geographic Per-pixel 3D Mapping</p>
-      <h1>GeoXel</h1>
-      <p class="subtitle">From Aerial Video in the Wild</p>
-      <p class="lead">GeoXel reconstructs geographically aligned camera trajectories and dense 3D geometry from long-duration aerial video.</p>
-      <div class="actions" aria-label="Project links">
-        <a class="button button-primary" href="https://github.com/misakamage/GeoXel" target="_blank" rel="noreferrer">Repository</a>
-        <a class="button button-muted" href="#" aria-disabled="true" title="Paper link will be added when publicly available"><span class="button-icon" aria-hidden="true">&#128196;</span>Paper</a>
-        <a class="button button-muted" href="#" aria-disabled="true" title="Demo link is not available yet"><span class="button-icon" aria-hidden="true">&#9654;</span>Demo</a>
-      </div>
-      <figure class="hero-figure"><img src="assets/teaser.png" alt="GeoXel method overview and AMtown trajectory comparison"></figure>
+  <main class="max-w-5xl mx-auto px-4 py-10 space-y-16">
+    <section class="text-center">
+      <div class="rounded-xl overflow-hidden shadow-xl border border-gray-200 bg-white"><img src="./assets/teaser.png" alt="GeoXel teaser showing the method and AMtown trajectory comparison" class="w-full"></div>
+      <p class="mt-4 text-gray-600 text-sm md:text-base max-w-4xl mx-auto text-justify">GeoXel addresses two challenges in long-duration aerial reconstruction: cumulative trajectory drift and the lack of geographic alignment. It uses geo-referenced maps to supervise chunk-wise inference, test-time token adaptation, and trajectory refinement.</p>
     </section>
-    <section class="section-shell intro" aria-labelledby="abstract-title">
-      <div class="section-label">01 / Abstract</div>
-      <div>
-        <h2 id="abstract-title">Geographic grounding for long aerial video</h2>
-        <p>Feed-forward geometry models efficiently estimate camera motion and scene structure, but long sequences accumulate drift and do not naturally align with geographic coordinates. GeoXel uses widely available Digital Orthophoto Maps (DOM), Digital Elevation Models (DEM), and OpenStreetMap (OSM) as spatial supervision.</p>
-        <p>Video is processed as overlapping chunks. Geo-referenced anchors guide segment-local test-time token adaptation while the visual backbone remains frozen. Intra-chunk and global pose-graph optimization then produce a consistent ENU trajectory and per-pixel geographic map.</p>
+    <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+      <h2 class="text-3xl font-bold mb-6 text-center">Abstract</h2>
+      <p class="text-gray-700 leading-relaxed text-justify text-lg">GeoXel is a framework for geo-referenced 3D reconstruction from long-duration aerial video. Given a video stream and geographic priors including Digital Orthophoto Maps (DOM), Digital Elevation Models (DEM), and OpenStreetMap (OSM), GeoXel processes overlapping chunks with a transformer-based visual geometry model. Geo-referenced anchors connect visual reconstruction to global coordinates. A segment-local test-time training strategy optimizes detached aggregator tokens while keeping the pretrained visual backbone frozen, followed by intra-chunk and global pose-graph optimization for local and global spatial consistency.</p>
+    </section>
+    <section>
+      <h2 class="text-3xl font-bold mb-8 text-center">Method Overview</h2>
+      <div class="rounded-xl overflow-hidden shadow-lg border border-gray-200 bg-white"><img src="./assets/pipeline.png" alt="GeoXel pipeline overview" class="w-full"></div>
+      <div class="grid md:grid-cols-4 gap-5 mt-8 text-center">
+        <div><div class="text-teal-700 font-bold text-sm">01</div><h3 class="font-bold mt-2">Frozen Forward</h3><p class="text-gray-600 text-sm mt-2">StreamVGGT processes overlapping video chunks.</p></div>
+        <div><div class="text-teal-700 font-bold text-sm">02</div><h3 class="font-bold mt-2">Geo Anchors</h3><p class="text-gray-600 text-sm mt-2">DOM matching and DEM elevation provide ENU constraints.</p></div>
+        <div><div class="text-teal-700 font-bold text-sm">03</div><h3 class="font-bold mt-2">Token TTT</h3><p class="text-gray-600 text-sm mt-2">Segment-local aggregator tokens adapt to geography.</p></div>
+        <div><div class="text-teal-700 font-bold text-sm">04</div><h3 class="font-bold mt-2">PGO</h3><p class="text-gray-600 text-sm mt-2">Intra-chunk and global graphs refine the trajectory.</p></div>
       </div>
     </section>
-    <section id="method" class="section-shell method" aria-labelledby="method-title">
-      <div class="section-label">02 / Method</div>
-      <div>
-        <h2 id="method-title">Stream, ground, refine</h2>
-        <p class="section-copy">GeoXel combines a frozen StreamVGGT visual prior with geographic observations and deterministic trajectory refinement.</p>
-        <figure class="wide-figure"><img src="assets/pipeline.png" alt="GeoXel pipeline with StreamVGGT, test-time training, and pose graph optimization"></figure>
-        <div class="method-grid">
-          <article><span class="step">01</span><h3>Frozen forward</h3><p>Process overlapping video chunks with StreamVGGT and retain the streaming geometry state.</p></article>
-          <article><span class="step">02</span><h3>Geographic observations</h3><p>Match image crops to DOM features and use DEM elevations to obtain ENU anchors.</p></article>
-          <article><span class="step">03</span><h3>Token adaptation</h3><p>Optimize detached, segment-local aggregator tokens while preserving the frozen backbone.</p></article>
-          <article><span class="step">04</span><h3>Pose graph refinement</h3><p>Join intra-chunk and global constraints into a geographically consistent trajectory.</p></article>
-        </div>
-      </div>
-    </section>
-    <section id="code" class="section-shell code-section" aria-labelledby="code-title">
-      <div class="section-label">03 / Code</div>
-      <div>
-        <h2 id="code-title">Run the public AMtown entry point</h2>
-        <p>Install the dependencies, prepare UAVScenes and a local StreamVGGT checkpoint, then run the reproducible 200-frame configuration.</p>
-        <pre><code>UAVSCENES_ROOT=/path/to/uavscene \
+    <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+      <h2 class="text-3xl font-bold mb-6 text-center">Quick Start</h2>
+      <p class="text-gray-700 leading-relaxed text-center mb-6">Install the dependencies, prepare UAVScenes and a local StreamVGGT checkpoint, then run the public AMtown entry point.</p>
+      <pre class="bg-gray-800 text-gray-200 p-5 rounded-lg overflow-x-auto text-sm"><code>UAVSCENES_ROOT=/path/to/uavscene \
 CHECKPOINT=/path/to/checkpoints.pth \
 bash scripts/run_uavscenes_amtown.sh</code></pre>
-        <p class="small-note">The default uses frame index 200, stride 5, 32-frame segments, 8-frame overlap, token adaptation on layers 17 and 23, and pose-graph refinement.</p>
-        <a class="text-link" href="../scripts/run_uavscenes_amtown.sh">View the shell runner <span aria-hidden="true">&#8594;</span></a>
-      </div>
+      <p class="text-gray-500 text-sm text-center mt-4">Frame index 200 · stride 5 · 32-frame segments · 8-frame overlap · TTT layers 17 and 23</p>
     </section>
-    <section id="citation" class="section-shell citation" aria-labelledby="citation-title">
-      <div class="section-label">04 / Citation</div>
-      <div>
-        <h2 id="citation-title">Cite GeoXel</h2>
-        <p>If GeoXel contributes to your research, please cite the accompanying paper. Bibliographic details will be added when the paper is publicly available.</p>
-        <a class="text-link" href="../CITATION.cff">Open CITATION.cff <span aria-hidden="true">&#8594;</span></a>
-      </div>
+    <section class="bg-gray-100 p-8 rounded-xl">
+      <h2 class="text-2xl font-bold mb-4">BibTeX</h2>
+      <p class="mb-4 text-gray-600">Bibliographic details will be added when the paper is publicly available.</p>
+      <pre class="bg-gray-800 text-gray-200 p-4 rounded-lg overflow-x-auto font-mono text-sm"><code>@article{geoxel,
+  title={GeoXel: Geographic Per-pixel 3D Mapping from Aerial Video in the Wild},
+  author={GeoXel Authors},
+  year={2026}
+}</code></pre>
     </section>
   </main>
-  <footer class="site-footer"><div class="section-shell footer-inner"><span>GeoXel</span><span>Built on StreamVGGT and related open research</span><a href="../LICENSE">License</a></div></footer>
+  <footer class="bg-white py-8 border-t border-gray-200 text-center text-gray-500 text-sm"><p>GeoXel · Built on StreamVGGT and related open research</p><p class="mt-2"><a href="https://github.com/nudt-sawlab/geoxel" class="text-blue-500 hover:underline">GitHub Repository</a></p></footer>
 </body>
 </html>
